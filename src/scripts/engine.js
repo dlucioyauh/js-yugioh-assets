@@ -24,6 +24,11 @@ const state ={
     },
 };
 
+const playerSides = {
+    player1: "player-field-card",
+    computer: "computer-field-card",
+};
+
 const cardData = [
     {
         id: 0,
@@ -49,10 +54,20 @@ const cardData = [
         winOf: [0],
         loseOf: [1],
     },
-]
+];
+
+async function drawCards(cardNumbers, fieldSide){
+    for(let i = 0; i < cardNumbers; i++){
+        const randomCard = await getRandomCardId();
+        const cardImage = await createCardImage(randomCard.id, randomCard.name, fieldSide);
+
+        document.getElementById(fieldSide).appendChild(cardImage);
+    }
+}
 
 function init(){
-    
+    drawCards(5, playerSides.player1);
+    drawCards(5, playerSides.computer);
 }
 
 init()
